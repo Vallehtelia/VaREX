@@ -1,0 +1,9 @@
+# ninja log v6
+7	552	7582713516087318	VaREX_autogen/timestamp	58e52e9b2ecd8ea
+7	552	7582713516087318	VaREX_autogen/mocs_compilation.cpp	58e52e9b2ecd8ea
+7	552	7582713516087318	C:/Users/valle/Desktop/coding/VaREX/VaREX_APP/VaREX/build/Desktop_Qt_6_8_1_MinGW_64_bit-RelWithDebInfo/VaREX_autogen/timestamp	58e52e9b2ecd8ea
+7	552	7582713516087318	C:/Users/valle/Desktop/coding/VaREX/VaREX_APP/VaREX/build/Desktop_Qt_6_8_1_MinGW_64_bit-RelWithDebInfo/VaREX_autogen/mocs_compilation.cpp	58e52e9b2ecd8ea
+557	2318	7582713516747311	CMakeFiles/VaREX.dir/VaREX_autogen/mocs_compilation.cpp.obj	cbf502e32028ab56
+560	2349	7582713516777311	CMakeFiles/VaREX.dir/main.cpp.obj	dc40bb71fee5eaba
+562	3609	7582713516797323	CMakeFiles/VaREX.dir/mainwindow.cpp.obj	78044ea05e59de0c
+3610	3785	7582713547277311	VaREX.exe	7e050873476a1c09

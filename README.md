@@ -35,3 +35,4 @@
 <hr><p>(will update as project moves on)</p><h2>Project Status</h2>
 <hr><p>In Progress</p><h2>Contact</h2>
 <hr><p><span style="margin-right: 30px;"></span><a href="www.linkedin.com/in/vallevaalanti"><img style="width: 10%;" target="_blank" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-original.svg"></a></p>
+www.linkedin.com/in/vallevaalanti

@@ -145,13 +145,18 @@ C:/Users/valle/Desktop/coding/VaREX/VaREX_APP/VaREX/build/Desktop_Qt_6_8_1_MinGW
   C:/Qt/6.8.1/mingw_64/include/QtGui/qtransform.h \
   C:/Qt/6.8.1/mingw_64/include/QtGui/qwindowdefs.h \
   C:/Qt/6.8.1/mingw_64/include/QtGui/qwindowdefs_win.h \
+  C:/Qt/6.8.1/mingw_64/include/QtMultimedia/QAudioDevice \
   C:/Qt/6.8.1/mingw_64/include/QtMultimedia/QAudioInput \
   C:/Qt/6.8.1/mingw_64/include/QtMultimedia/QMediaCaptureSession \
+  C:/Qt/6.8.1/mingw_64/include/QtMultimedia/QMediaDevices \
   C:/Qt/6.8.1/mingw_64/include/QtMultimedia/QMediaFormat \
   C:/Qt/6.8.1/mingw_64/include/QtMultimedia/QMediaRecorder \
   C:/Qt/6.8.1/mingw_64/include/QtMultimedia/qaudio.h \
+  C:/Qt/6.8.1/mingw_64/include/QtMultimedia/qaudiodevice.h \
+  C:/Qt/6.8.1/mingw_64/include/QtMultimedia/qaudioformat.h \
   C:/Qt/6.8.1/mingw_64/include/QtMultimedia/qaudioinput.h \
   C:/Qt/6.8.1/mingw_64/include/QtMultimedia/qmediacapturesession.h \
+  C:/Qt/6.8.1/mingw_64/include/QtMultimedia/qmediadevices.h \
   C:/Qt/6.8.1/mingw_64/include/QtMultimedia/qmediaformat.h \
   C:/Qt/6.8.1/mingw_64/include/QtMultimedia/qmediametadata.h \
   C:/Qt/6.8.1/mingw_64/include/QtMultimedia/qmediarecorder.h \

@@ -7,6 +7,8 @@
 #include <QtMultimedia/QMediaRecorder>
 #include <QtMultimedia/QAudioInput>
 #include <QtMultimedia/QMediaFormat>
+#include <QtMultimedia/QAudioDevice>
+#include <QtMultimedia/QMediaDevices>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -22,16 +24,28 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
     void    addRecordingToList();
+    void    populateDeviceComboBoxes();
+    QList<QAudioDevice> findInputDevices();
+    QList<QAudioDevice> findOutputDevices();
+
 private slots:
     void    onRecordButtonClicked();
+    void onOutputDeviceChanged(int index);
+    void onInputDeviceChanged(int index);
 
 private:
     Ui::MainWindow  *ui;
     bool            isRecording;
+    QList<QAudioDevice> inputDevices;
+    QList<QAudioDevice> outputDevices;
 
-    QMediaCaptureSession    captureSession;
-    QAudioInput             audioInput;
-    QMediaRecorder          mediaRecorder;
+    QMediaCaptureSession    micCaptureSession;
+    QAudioInput             micAudioInput;
+    QMediaRecorder          micMediaRecorder;
+
+    QMediaCaptureSession    speakerCaptureSession;
+    QAudioInput             speakerAudioInput;
+    QMediaRecorder          speakerMediaRecorder;
 };
 
 #endif // MAINWINDOW_H

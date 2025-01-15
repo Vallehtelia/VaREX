@@ -7,6 +7,7 @@
 *****************************************************************************/
 
 #include "../../../../mainwindow.h"
+#include <QtGui/qtextcursor.h>
 #include <QtCore/qmetatype.h>
 
 #include <QtCore/qtmochelpers.h>
@@ -40,9 +41,9 @@ static constexpr auto qt_meta_stringdata_ZN10MainWindowE = QtMocHelpers::stringD
     "MainWindow",
     "onRecordButtonClicked",
     "",
-    "onOutputDeviceChanged",
+    "onInputDeviceChanged",
     "index",
-    "onInputDeviceChanged"
+    "onSummaryButtonClicked"
 );
 #else  // !QT_MOC_HAS_STRINGDATA
 #error "qtmochelpers.h not found or too old."
@@ -64,12 +65,12 @@ Q_CONSTINIT static const uint qt_meta_data_ZN10MainWindowE[] = {
  // slots: name, argc, parameters, tag, flags, initial metatype offsets
        1,    0,   32,    2, 0x08,    1 /* Private */,
        3,    1,   33,    2, 0x08,    2 /* Private */,
-       5,    1,   36,    2, 0x08,    4 /* Private */,
+       5,    0,   36,    2, 0x08,    4 /* Private */,
 
  // slots: parameters
     QMetaType::Void,
     QMetaType::Void, QMetaType::Int,    4,
-    QMetaType::Void, QMetaType::Int,    4,
+    QMetaType::Void,
 
        0        // eod
 };
@@ -85,12 +86,11 @@ Q_CONSTINIT const QMetaObject MainWindow::staticMetaObject = { {
         QtPrivate::TypeAndForceComplete<MainWindow, std::true_type>,
         // method 'onRecordButtonClicked'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        // method 'onOutputDeviceChanged'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        QtPrivate::TypeAndForceComplete<int, std::false_type>,
         // method 'onInputDeviceChanged'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        QtPrivate::TypeAndForceComplete<int, std::false_type>
+        QtPrivate::TypeAndForceComplete<int, std::false_type>,
+        // method 'onSummaryButtonClicked'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>
     >,
     nullptr
 } };
@@ -101,8 +101,8 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
     if (_c == QMetaObject::InvokeMetaMethod) {
         switch (_id) {
         case 0: _t->onRecordButtonClicked(); break;
-        case 1: _t->onOutputDeviceChanged((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
-        case 2: _t->onInputDeviceChanged((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
+        case 1: _t->onInputDeviceChanged((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
+        case 2: _t->onSummaryButtonClicked(); break;
         default: ;
         }
     }

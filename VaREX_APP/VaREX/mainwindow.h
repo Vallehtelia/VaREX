@@ -9,6 +9,7 @@
 #include <QtMultimedia/QMediaFormat>
 #include <QtMultimedia/QAudioDevice>
 #include <QtMultimedia/QMediaDevices>
+#include <QLabel>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -26,25 +27,27 @@ public:
     void    addRecordingToList();
     void    populateDeviceComboBoxes();
     QList<QAudioDevice> findInputDevices();
-    QList<QAudioDevice> findOutputDevices();
 
 private slots:
     void    onRecordButtonClicked();
-    void onOutputDeviceChanged(int index);
-    void onInputDeviceChanged(int index);
+    void    onInputDeviceChanged(int index);
+    void    onSummaryButtonClicked();
 
 private:
     Ui::MainWindow  *ui;
     bool            isRecording;
     QList<QAudioDevice> inputDevices;
     QList<QAudioDevice> outputDevices;
+    QString         audioFilePath;
+    QLabel          *loadingAnimation;
+    QMovie          *movie;
 
     QMediaCaptureSession    micCaptureSession;
-    QAudioInput             micAudioInput;
+    QAudioInput             *micAudioInput;
     QMediaRecorder          micMediaRecorder;
 
     QMediaCaptureSession    speakerCaptureSession;
-    QAudioInput             speakerAudioInput;
+    QAudioInput             *speakerAudioInput;
     QMediaRecorder          speakerMediaRecorder;
 };
 

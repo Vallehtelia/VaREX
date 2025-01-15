@@ -45,6 +45,7 @@ C:/Users/valle/Desktop/coding/VaREX/VaREX_APP/VaREX/build/Desktop_Qt_6_8_1_MinGW
   C:/Qt/6.8.1/mingw_64/include/QtCore/qglobalstatic.h \
   C:/Qt/6.8.1/mingw_64/include/QtCore/qhash.h \
   C:/Qt/6.8.1/mingw_64/include/QtCore/qhashfunctions.h \
+  C:/Qt/6.8.1/mingw_64/include/QtCore/qiodevice.h \
   C:/Qt/6.8.1/mingw_64/include/QtCore/qiodevicebase.h \
   C:/Qt/6.8.1/mingw_64/include/QtCore/qiterable.h \
   C:/Qt/6.8.1/mingw_64/include/QtCore/qiterator.h \
@@ -114,6 +115,7 @@ C:/Users/valle/Desktop/coding/VaREX/VaREX_APP/VaREX/build/Desktop_Qt_6_8_1_MinGW
   C:/Qt/6.8.1/mingw_64/include/QtCore/qtversionchecks.h \
   C:/Qt/6.8.1/mingw_64/include/QtCore/qtypeinfo.h \
   C:/Qt/6.8.1/mingw_64/include/QtCore/qtypes.h \
+  C:/Qt/6.8.1/mingw_64/include/QtCore/qurl.h \
   C:/Qt/6.8.1/mingw_64/include/QtCore/qutf8stringview.h \
   C:/Qt/6.8.1/mingw_64/include/QtCore/qvariant.h \
   C:/Qt/6.8.1/mingw_64/include/QtCore/qvarlengtharray.h \
@@ -133,12 +135,14 @@ C:/Users/valle/Desktop/coding/VaREX/VaREX_APP/VaREX/build/Desktop_Qt_6_8_1_MinGW
   C:/Qt/6.8.1/mingw_64/include/QtGui/qkeysequence.h \
   C:/Qt/6.8.1/mingw_64/include/QtGui/qpaintdevice.h \
   C:/Qt/6.8.1/mingw_64/include/QtGui/qpalette.h \
+  C:/Qt/6.8.1/mingw_64/include/QtGui/qpicture.h \
   C:/Qt/6.8.1/mingw_64/include/QtGui/qpixelformat.h \
   C:/Qt/6.8.1/mingw_64/include/QtGui/qpixmap.h \
   C:/Qt/6.8.1/mingw_64/include/QtGui/qpolygon.h \
   C:/Qt/6.8.1/mingw_64/include/QtGui/qregion.h \
   C:/Qt/6.8.1/mingw_64/include/QtGui/qrgb.h \
   C:/Qt/6.8.1/mingw_64/include/QtGui/qrgba64.h \
+  C:/Qt/6.8.1/mingw_64/include/QtGui/qtextdocument.h \
   C:/Qt/6.8.1/mingw_64/include/QtGui/qtgui-config.h \
   C:/Qt/6.8.1/mingw_64/include/QtGui/qtguiexports.h \
   C:/Qt/6.8.1/mingw_64/include/QtGui/qtguiglobal.h \
@@ -164,7 +168,10 @@ C:/Users/valle/Desktop/coding/VaREX/VaREX_APP/VaREX/build/Desktop_Qt_6_8_1_MinGW
   C:/Qt/6.8.1/mingw_64/include/QtMultimedia/qtmultimedia-config.h \
   C:/Qt/6.8.1/mingw_64/include/QtMultimedia/qtmultimediaexports.h \
   C:/Qt/6.8.1/mingw_64/include/QtMultimedia/qtmultimediaglobal.h \
+  C:/Qt/6.8.1/mingw_64/include/QtWidgets/QLabel \
   C:/Qt/6.8.1/mingw_64/include/QtWidgets/QMainWindow \
+  C:/Qt/6.8.1/mingw_64/include/QtWidgets/qframe.h \
+  C:/Qt/6.8.1/mingw_64/include/QtWidgets/qlabel.h \
   C:/Qt/6.8.1/mingw_64/include/QtWidgets/qmainwindow.h \
   C:/Qt/6.8.1/mingw_64/include/QtWidgets/qsizepolicy.h \
   C:/Qt/6.8.1/mingw_64/include/QtWidgets/qtabwidget.h \

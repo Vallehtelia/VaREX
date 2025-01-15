@@ -3,11 +3,18 @@
 #include <QDebug>
 #include <QUrl>
 #include <QDir>
+#include <QMessageBox>
+#include <QProcess>
+#include <QMovie>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
+    , micAudioInput(new QAudioInput(this))
+    , speakerAudioInput(nullptr)
     , isRecording(false)
+    , audioFilePath("C:/Users/valle/Desktop/recordings/")
+    , loadingAnimation(new QLabel(this))
 {
     ui->setupUi(this);
 
@@ -17,19 +24,41 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->inputDeviceComboBox, QOverload<int>::of(&QComboBox::currentIndexChanged),
             this, &MainWindow::onInputDeviceChanged);
 
-    connect(ui->outputDeviceComboBox, QOverload<int>::of(&QComboBox::currentIndexChanged),
-            this, &MainWindow::onOutputDeviceChanged);
+    connect(ui->summaryButton, &QPushButton::clicked, this, &MainWindow::onSummaryButtonClicked);
 
     inputDevices = findInputDevices();
-    outputDevices = findOutputDevices();
-
     populateDeviceComboBoxes();
 
-    micCaptureSession.setAudioInput(&micAudioInput);
+    micCaptureSession.setAudioInput(micAudioInput);
     micCaptureSession.setRecorder(&micMediaRecorder);
 
-    speakerCaptureSession.setAudioInput(&speakerAudioInput);
-    speakerCaptureSession.setRecorder(&speakerMediaRecorder);
+    movie = new QMovie("../../assets/loading.gif");
+    loadingAnimation->setMovie(movie);
+    loadingAnimation->setScaledContents(true);
+    // move the loading animation to the center of the window with size of image in mind
+    loadingAnimation->move(this->width() / 2 - 75, this->height() / 2 - 75);
+    loadingAnimation->setFixedSize(150, 150);
+    loadingAnimation->setVisible(false);
+
+    movie->start();
+
+    foreach (const QAudioDevice &device, inputDevices)
+    {
+        if (device.description().contains("Stereo Mix", Qt::CaseInsensitive))
+        {
+            speakerAudioInput = new QAudioInput(device, this);
+            speakerCaptureSession.setAudioInput(speakerAudioInput);
+            speakerCaptureSession.setRecorder(&speakerMediaRecorder);
+            qDebug() << "Recording speakers from:" << speakerAudioInput->device().description();
+            break;
+        }
+    }
+
+    if (!speakerAudioInput)
+    {
+        ui->stereoMixMissing->setText("Stereo Mix -laitetta ei löytynyt.");
+        ui->recordButton->setEnabled(false);
+    }
 
     QMediaFormat format;
     format.setFileFormat(QMediaFormat::Wave);
@@ -44,19 +73,19 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow()
 {
     delete ui;
+    delete micAudioInput;
+    if (speakerAudioInput)
+        delete speakerAudioInput;
+    delete loadingAnimation;
+    delete movie;
 }
 
 void    MainWindow::populateDeviceComboBoxes()
 {
     ui->inputDeviceComboBox->clear();
-    ui->outputDeviceComboBox->clear();
 
     foreach (const QAudioDevice &device, inputDevices) {
         ui->inputDeviceComboBox->addItem(device.description());
-    }
-
-    foreach (const QAudioDevice &device, outputDevices) {
-        ui->outputDeviceComboBox->addItem(device.description());
     }
 }
 
@@ -65,17 +94,17 @@ void MainWindow::onInputDeviceChanged(int index)
     if (index >= 0 && index < inputDevices.size()) {
         QAudioDevice selectedDevice = inputDevices.at(index);
         qDebug() << "Selected input device:" << selectedDevice.description();
-        micAudioInput.setDevice(selectedDevice);
-    }
-}
+        
+        if (micAudioInput)
+        {
+            delete micAudioInput;
+            micAudioInput = nullptr;
+        }
 
-void MainWindow::onOutputDeviceChanged(int index)
-{
-    if (index >= 0 && index < outputDevices.size()) {
-        QAudioDevice selectedDevice = outputDevices.at(index);
-        qDebug() << "Selected output device:" << selectedDevice.description();
-        speakerAudioInput.setDevice(selectedDevice);
-        // Tähän voit lisätä logiikan output-laitteen käyttöön, jos tarvitaan
+        micAudioInput = new QAudioInput(selectedDevice, this);
+        micCaptureSession.setAudioInput(micAudioInput);
+
+        qDebug() << "Recording microphone from:" << micAudioInput->device().description();
     }
 }
 
@@ -84,14 +113,9 @@ QList<QAudioDevice> MainWindow::findInputDevices()
     return QMediaDevices::audioInputs();;
 }
 
-QList<QAudioDevice> MainWindow::findOutputDevices()
-{
-    return QMediaDevices::audioOutputs();
-}
-
 void    MainWindow::addRecordingToList()
 {
-    QDir dir("C:/Users/valle/Desktop/recordings");
+    QDir dir(audioFilePath);
     QStringList files = dir.entryList(QStringList() << "*.wav", QDir::Files);
     foreach(QString file, files) {
         //check if file already exists
@@ -102,16 +126,50 @@ void    MainWindow::addRecordingToList()
     }
 }
 
+void    MainWindow::onSummaryButtonClicked()
+{
+    QString pythonPath = "C:/Users/valle/AppData/Local/Microsoft/WindowsApps/python3.exe";
+    QString scriptPath = "C:/Users/valle/Desktop/coding/VaREX/transcript.py";
+
+    loadingAnimation->setVisible(true);
+
+    QProcess *process = new QProcess(this);
+    connect(process, &QProcess::readyReadStandardOutput, [process](){
+        qDebug() << "Output: " << process->readAllStandardOutput();
+    });
+    connect(process, &QProcess::readyReadStandardError, [process](){
+        qDebug() << "Error: " << process->readAllStandardError();
+    });
+
+    connect(process, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished),
+            [this, process](int exitCode, QProcess::ExitStatus exitStatus){
+                loadingAnimation->setVisible(false);
+                if (exitStatus == QProcess::NormalExit && exitCode == 0)
+                {
+                    QMessageBox::information(this, "Success!", "Transkriptio on valmis.");
+                }
+                else
+                {
+                    QMessageBox::critical(this, "Error!", "Transkriptin luonti epäonnistui.");
+                }
+                process->deleteLater();
+            });
+    
+    process->start(pythonPath, QStringList() << scriptPath);
+}
+
 void    MainWindow::onRecordButtonClicked()
 {
     if (!isRecording)
     {
-        QString micFileName = ("C:/Users/valle/Desktop/recordings/" + QDateTime::currentDateTime().toString("yyyy-MM-dd_hh-mm-ss") + "_mic.wav");
-        QString speakerFileName = ("C:/Users/valle/Desktop/recordings/" + QDateTime::currentDateTime().toString("yyyy-MM-dd_hh-mm-ss") + "_speaker.wav");
+        QString micFileName = (audioFilePath + QDateTime::currentDateTime().toString("yyyy-MM-dd_hh-mm-ss") + "_mic.wav");
+        QString speakerFileName = (audioFilePath + QDateTime::currentDateTime().toString("yyyy-MM-dd_hh-mm-ss") + "_speaker.wav");
 
         qDebug() << micFileName;
         qDebug() << speakerFileName;
 
+        qDebug() << "Recording microphone from:" << micAudioInput->device().description();
+        qDebug() << "Recording speakers from:" << speakerAudioInput->device().description();
 
         micMediaRecorder.setOutputLocation(QUrl::fromLocalFile(micFileName));
         addRecordingToList();
@@ -121,16 +179,12 @@ void    MainWindow::onRecordButtonClicked()
         addRecordingToList();
 
         qDebug() << "Aloitetaan nauhoitus...";
+        qDebug() << "Recording microphone from:" << micAudioInput->device().description();
+        qDebug() << "Recording speakers from:" << speakerAudioInput->device().description();
         micMediaRecorder.record();
         speakerMediaRecorder.record();
         ui->recordButton->setText("Lopeta nauhoitus");
         isRecording = true;
-        /*mediaRecorder.setOutputLocation(QUrl::fromLocalFile(micFileName));
-        addRecordingToList();
-        qDebug() << "Aloitetaan nauhoitus...";
-        mediaRecorder.record();
-        ui->recordButton->setText("Lopeta nauhoitus");
-        isRecording = true;*/
     }
     else
     {

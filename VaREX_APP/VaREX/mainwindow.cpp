@@ -129,7 +129,7 @@ void    MainWindow::addRecordingToList()
 void    MainWindow::onSummaryButtonClicked()
 {
     QString pythonPath = "C:/Users/valle/AppData/Local/Microsoft/WindowsApps/python3.exe";
-    QString scriptPath = "C:/Users/valle/Desktop/coding/VaREX/transcript.py";
+    QString transcript_scriptPath = "C:/Users/valle/Desktop/coding/VaREX/transcript.py";
 
     loadingAnimation->setVisible(true);
 
@@ -155,7 +155,7 @@ void    MainWindow::onSummaryButtonClicked()
                 process->deleteLater();
             });
     
-    process->start(pythonPath, QStringList() << scriptPath);
+    process->start(pythonPath, QStringList() << transcript_scriptPath);
 }
 
 void    MainWindow::onRecordButtonClicked()
